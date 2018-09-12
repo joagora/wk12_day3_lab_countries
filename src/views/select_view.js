@@ -10,6 +10,11 @@ SelectView.prototype.bindEvents = function() {
     console.log(allCountries);
     this.populateDropdown(allCountries);
   });
+  const selectElement = document.querySelector('#countries');
+  selectElement.addEventListener('change' , (event) => {
+    const selectedCountryIndex = event.target.value;
+    PubSub.publish('SelectView:selected-country-index', selectedCountryIndex);
+  })
 }
 
 
@@ -18,6 +23,7 @@ SelectView.prototype.populateDropdown = function(countries) {
   for(country of countries) {
     const optionElement = document.createElement('option');
     const idOfCountry = countries.indexOf(country);
+    optionElement.setAttribute('value', idOfCountry);
     optionElement.textContent = country.name;
     selectElement.appendChild(optionElement);
   }

@@ -12,11 +12,14 @@ Countries.prototype.getData = function () {
     PubSub.publish('Countries:data-ready', this.data);
   })
 }
-//
-// Countries.prototype.bindEvents = function() {
-//   this.getData();
-//   console.log(this.data);
-//
-// }
+
+Countries.prototype.bindEvents = function() {
+  PubSub.subscribe('SelectView:selected-country-index', (event) => {
+    const indexOfSelectedCountry = event.detail;
+    const selectedCountry = this.data[indexOfSelectedCountry];
+    PubSub.publish('Countries:selected-country-ready', selectedCountry);
+  })
+
+}
 
 module.exports = Countries;
