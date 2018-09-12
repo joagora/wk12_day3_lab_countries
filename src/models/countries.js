@@ -9,9 +9,14 @@ Countries.prototype.getData = function () {
   const request = new Request('https://restcountries.eu/rest/v2/all');
   request.get((data) => {
     this.data = data;
-    PubSub.publish('Countries:data-ready');
-
+    PubSub.publish('Countries:data-ready', this.data);
   })
 }
+//
+// Countries.prototype.bindEvents = function() {
+//   this.getData();
+//   console.log(this.data);
+//
+// }
 
 module.exports = Countries;
